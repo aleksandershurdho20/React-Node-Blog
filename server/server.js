@@ -5,13 +5,19 @@ require('dotenv').config();
 const app = express ();
 app.enable('trust proxy')
 const mongoose = require('mongoose')
-app.use(cors ({origin:'*'}))
 //* =>  all origins to accept form
 app.use(bodyParser.json())
 const authRoutes = require('./routes/authRoutes')
 //Creating API
 
-app.use("api/v1/auth", authRoutes)
+app.use(cors())
+app.use("/api", authRoutes) 
+// app.use(
+//     cors({
+//       origin: "http://localhost:3000",
+//       // credentials: true,
+//     })
+//   );
 
 //Connect to Database
 const DB = process.env.DATABASE
