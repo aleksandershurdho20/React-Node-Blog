@@ -6,14 +6,14 @@ import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
-
+import Home from './Components/Home'
 function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path ="/" component={Login}/>
+        <Route exact path ="/" component={Login} />
         <Route exact path = "/SignUp" component={SignUp}/>
-
+          <Route exact path ="/Home" component={Home}/>
       </Switch>
     
     </Router>

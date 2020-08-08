@@ -13,6 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom'
+import { useAuth } from "../hooks/useAuth"
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -59,23 +61,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
-    const [formData, setformData]=useState({
-        email:'',
-        password:''
-    })
-    const{email,password}=formData;
+
+    const [formSignUp, setformSignUp, signupUser, loginUser ] = useAuth();
+
+    const{email, password} = formSignUp;
+
     const onChange=(e)=>{
-        setformData({
-            ...formData,[e.target.name]:e.target.value
+      setformSignUp({
+            ...formSignUp,[e.target.name]:e.target.value
             
         })
     }
-    console.log(formData)
+
     const onSubmit = (e)=>{
         e.preventDefault();
+        if (formSignUp) signupUser(email,password)
+
+          loginUser(email,password)
     }
-    //Api Calls
     
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -135,7 +140,7 @@ export default function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="/SignUp" variant="body2">
+                <Link href="/SignUp" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

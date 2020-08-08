@@ -48,3 +48,21 @@ exports.signup = async (req,res) => {
     }
     console.log('sign up hitted')
 }
+
+exports.login = async (req,res)=>{
+    const {email,password} = req.body
+
+    console.log('Sign in ')
+    try{
+        const user = await User.findOne({email}).select("+password")
+
+        //Compare Passwords the value is going to be true or false
+       
+        await bcrypt.compare(password, user.password)
+        sendToken(user,200,req,res);
+    }
+    catch (err){
+        console.log(err)
+        res.status(400).json(err.message)
+    }
+}   

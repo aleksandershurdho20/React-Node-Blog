@@ -13,8 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 // import {Link} from 'react-router-dom'
-import Api from '../utils/Api'
-function Copyright() {
+import { useAuth } from "../hooks/useAuth"
+import {MinHook} from "../hooks/MinHook"
+function Copyright( ) {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -49,35 +50,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-  const [formSignUp, setformSignUp]=useState({
-    email:'',
-    password:''
-})
-const{email,password}=formSignUp;
-const onChange=(e)=>{
-    setformSignUp({
-        ...formSignUp,[e.target.name]:e.target.value
-        
-    })
-}
-console.log(formSignUp)
-const onSubmit = (e)=>{
-    e.preventDefault();
-    signupUser(email,password);
-}
-//Sign Up api Call
-const signupUser = async (email,password) => {
-    try{
-        const config = {headers :{"Content-Type":"application/json"}}
-        const body = {email,password};
-        const res  = await Api.post('/api/signup',body,config);
-        console.log('Data from Api ',res)
-    }
-    catch(err){
-        console.log(err)
+  const [formSignUp, setformSignUp, signupUser ] = MinHook();
 
-    }
-}
+  const{email ,password} = formSignUp;
+
+  const onChange=(e)=>{
+      setformSignUp({
+          ...formSignUp,[e.target.name]:e.target.value
+          
+      })
+  }
+  // console.log(formSignUp)
+  const onSubmit = (e)=>{
+      e.preventDefault();
+      signupUser(email, password);
+      console.log('I am signing user',signupUser)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
