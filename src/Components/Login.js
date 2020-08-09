@@ -77,7 +77,7 @@ export default function Login() {
         e.preventDefault();
         if (formSignUp) signupUser(email,password)
 
-          loginUser(email,password)
+        else  loginUser(email,password)
     }
     
 

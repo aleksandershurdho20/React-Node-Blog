@@ -17,7 +17,7 @@ export const useAuth = () => {
             const body = {email,password};
             const res  = await api.post('/api/signup',body,config);
             console.log('Data from Api ',res)
-
+              
         }
         catch(err){
             console.log(err)
